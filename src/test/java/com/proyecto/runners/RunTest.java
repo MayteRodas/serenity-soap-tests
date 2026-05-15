@@ -1,3 +1,4 @@
+
 package com.proyecto.runners;
 
 import io.cucumber.junit.CucumberOptions;
@@ -6,12 +7,21 @@ import org.junit.runner.RunWith;
 
 @RunWith(CucumberWithSerenity.class)
 @CucumberOptions(
-        features = "classpath:features",
+
+        features = "src/test/resources/features",
+
         glue = "com.proyecto.stepdefinitions",
-        plugin = {"pretty"},
-        tags = ""
+
+
+        plugin = {
+                "pretty",
+                "json:target/cucumber-reports/Cucumber.json",
+                "html:target/cucumber-reports/Cucumber.html"
+        },
+
+
+        snippets = CucumberOptions.SnippetType.CAMELCASE
 )
-
-
 public class RunTest {
+
 }

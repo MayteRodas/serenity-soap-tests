@@ -38,8 +38,12 @@ java {
 }
 
 test {
-
     useJUnit()
+
+    // Agrega la raíz del proyecto al classpath para que
+    // serenity.properties sea encontrado por getResourceAsStream
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath + files(rootDir)
 
     if (project.hasProperty('tags')) {
         systemProperty 'cucumber.filter.tags', project.tags
@@ -48,7 +52,10 @@ test {
     finalizedBy(aggregate)
 }
 
-
+serenity {
+    testRoot = 'com.proyecto.tests'
+    requirementsDir = 'src/test/resources/features'
+}
 
 
 
