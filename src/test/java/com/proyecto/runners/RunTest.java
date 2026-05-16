@@ -17,10 +17,10 @@ import org.junit.runner.RunWith;
                 "pretty",
                 "json:target/cucumber-reports/Cucumber.json",
                 "html:target/cucumber-reports/Cucumber.html"
-        },
+        }//,
 
 
-        snippets = CucumberOptions.SnippetType.CAMELCASE
+        //snippets = CucumberOptions.SnippetType.CAMELCASE
 )
 public class RunTest {
 

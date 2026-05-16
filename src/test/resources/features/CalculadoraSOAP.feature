@@ -7,33 +7,35 @@ Característica: Calculadora SOAP - operaciones aritméticas
   Quiero  verificar que el servicio SOAP de calculadora responde correctamente
   Para    garantizar la integridad de los cálculos en producción
 
-  Dado: se ejecuta ANTES de cada Scenario.
 
   # URL en serenity.conf
   Antecedentes:
     Dado el servicio SOAP de calculadora está disponible
 
   # happy path
-  @smoke
-    Escenario: Sumar dos números enteros con resultado positivo
-    Dado envío un POST SOAP con la operación "Add" y los valores "10" y "5"
-    Entonces el código de respuesta HTTP debe ser "200"
-    Y el cuerpo de la respuesta XML debe contener el valor "15"
+  #@smoke
+  Esquema del escenario: Sumar dos números enteros con resultado positivo
+    Dado envío un POST SOAP con la operación <operacion> y los valores <valorA> y <valorB>
+    Entonces el código de respuesta HTTP debe ser <codigoEsperado>
+    Entonces el cuerpo de la respuesta XML debe contener el valor <valorEsperado>
+    Ejemplos:
+      | operacion | valorA | valorB | codigoEsperado | valorEsperado |
+      | "Add"     | "10"   | "5"    | "200"          | "15"          |
 
   # happy path 2
-  @smoke
+  #@smoke
     Escenario:  Restar dos números donde el resultado es positivo
     Cuando envío un POST SOAP con la operación "Subtract" y los valores "20" y "8"
     Entonces el código de respuesta HTTP debe ser "200"
-    Y el cuerpo de la respuesta XML debe contener el valor "12"
+      Entonces el cuerpo de la respuesta XML debe contener el valor "12"
 
    # múltiples operaciones con datos parametrizados ───
 
-  @regresion
+  #@regresion
   Esquema del escenario: Verificar las cuatro operaciones aritméticas básicas
     Cuando envío un POST SOAP con la operación "<operacion>" y los valores "<valorA>" y "<valorB>"
     Entonces el código de respuesta HTTP debe ser "200"
-    Y el cuerpo de la respuesta XML debe contener el valor "<resultadoEsperado>"
+    Entonces el cuerpo de la respuesta XML debe contener el valor "<resultadoEsperado>"
 
     # Datos de entrada
     Ejemplos:
@@ -44,8 +46,12 @@ Característica: Calculadora SOAP - operaciones aritméticas
       | Divide    | 10     | 2      | 5                 |
 
   # caso de error
-  @negativo
-    Escenario: Enviar un XML SOAP malformado debe retornar un error
-    When envío un POST SOAP con un XML inválido al servicio calculadora
-    Then el código de respuesta HTTP debe ser "500"
-    And el cuerpo de la respuesta XML debe contener "soap:Fault"
+  #@negativo
+  Esquema del escenario: Enviar un XML SOAP malformado debe retornar un error
+    Cuando envío un POST SOAP con un XML inválido al servicio calculadora
+    Entonces el código de respuesta HTTP debe ser <codigoEsperado>
+    Entonces el cuerpo de la respuesta XML debe contener el valor "soap:Fault"
+
+    Ejemplos:
+      | codigoEsperado |
+      | "500"          |

@@ -107,7 +107,7 @@
         <div id="logo"><a href="index.html"><img src="images/serenity-logo.png" border="0"/></a></div>
         <div id="projectname-banner" style="float:right">
             <span class="projectname">
-                <span class="projecttitle">Serenity BDD Report</span>
+                <span class="projecttitle">Serenity SOAP Tests</span>
                 <span class="projectsubtitle"></span>
             </span>
         </div>
@@ -140,7 +140,7 @@
             <a href="#"><i class="bi bi-chat-text"></i> Features</a>
         </li>
     </ul>
-    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 15-05-2026 17:35:56</span>
+    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 15-05-2026 23:05:23</span>
     <br style="clear:left"/>
 </div>
 
@@ -150,6 +150,39 @@
     <div id="results-dashboard">
         <div class="middlb">
             <div class="table">
+
+
+
+
+        <script>
+            $(document).ready(function () {
+
+                $('#requirements-table').DataTable({
+                    "order": [[0, "asc",], [3, "asc",]],
+                    "pageLength": 10,
+                    "language": {
+                        searchPlaceholder: "Filter",
+                        search: ""
+                    },
+                });
+            });
+        </script>
+    <h3 class="requirement-type-heading">Test Outcomes for Features </h3>
+
+    <table class="scenario-result table" id="requirements-table">
+        <thead>
+        <tr>
+            <th class="requirement-name-column" width="60%">Feature</th>
+            <th style="width:1em;">Test&nbsp;Cases</th>
+            <th style="width:1em;">Scenarios</th>
+            <th style="width:1em;">%&nbsp;Pass</th>
+            <th style="width:1em;">Result</th>
+            <th>Coverage</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
 
             </div>
         </div>

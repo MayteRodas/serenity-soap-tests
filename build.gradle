@@ -11,26 +11,29 @@ repositories {
 }
 
 ext {
-    serenityVersion    = '4.1.14'
-    cucumberVersion    = '7.15.0'
-    junitVersion       = '4.13.2'
+    serenityVersion = '4.1.14'
+    cucumberVersion = '7.15.0'
+    junitVersion    = '4.13.2'
 }
 
 dependencies {
-
-    testImplementation "net.serenity-bdd:serenity-core:${serenityVersion}"
-    testImplementation "net.serenity-bdd:serenity-cucumber:${serenityVersion}"
+    testImplementation("net.serenity-bdd:serenity-core:${serenityVersion}") {
+        exclude group: 'org.seleniumhq.selenium'   // ← AGREGA ESTO
+    }
+    testImplementation("net.serenity-bdd:serenity-cucumber:${serenityVersion}") {
+        exclude group: 'org.seleniumhq.selenium'   // ← AGREGA ESTO
+    }
     testImplementation "net.serenity-bdd:serenity-screenplay:${serenityVersion}"
     testImplementation "net.serenity-bdd:serenity-screenplay-rest:${serenityVersion}"
     testImplementation "io.cucumber:cucumber-java:${cucumberVersion}"
     testImplementation "io.cucumber:cucumber-junit:${cucumberVersion}"
-    testImplementation "junit:junit:${junitVersion}"
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.junit.vintage:junit-vintage-engine:5.10.1'
     testImplementation 'io.rest-assured:rest-assured:5.4.0'
     testImplementation 'org.assertj:assertj-core:3.25.3'
     compileOnly 'org.projectlombok:lombok:1.18.30'
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
 }
-
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -39,9 +42,7 @@ java {
 
 test {
     useJUnit()
-
-    // Agrega la raíz del proyecto al classpath para que
-    // serenity.properties sea encontrado por getResourceAsStream
+    doNotTrackState("checksums.lock conflict workaround")
     testClassesDirs = sourceSets.test.output.classesDirs
     classpath = sourceSets.test.runtimeClasspath + files(rootDir)
 
@@ -53,7 +54,7 @@ test {
 }
 
 serenity {
-    testRoot = 'com.proyecto.tests'
+    testRoot       = 'com.proyecto'         // ✅ paquete raíz corregido
     requirementsDir = 'src/test/resources/features'
 }
 
